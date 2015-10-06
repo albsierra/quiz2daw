@@ -1,8 +1,10 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	color: #FFB700;
+  padding: 30px;
+  font :40px "Arial", sans-serif;
+  background:black
 }
 
 a {
-  color: #00B7FF;
+  color: #FFB700;
 }
