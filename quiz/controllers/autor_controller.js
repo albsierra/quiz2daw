@@ -1,6 +1,6 @@
 //generar lista de autores
 
-exports.answer = function(req, res) {
+exports.list = function(req, res) {
     var arrayLista=["Lenin Naranjo Zapata"];
-    res.render("autores/autores",{Lista:arrayLista});
+    res.render("autores/autores",{lista:arrayLista});
 };
