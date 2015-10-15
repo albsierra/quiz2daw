@@ -7,8 +7,10 @@ exports.question = function(req, res) {
 exports.answer = function(req, res) {
     if(req.query.respuesta === 'Roma'){
         res.render('quizes/answer', {respuesta: 'Correcto'});
+        req.app.locals.contAciertos+=1;
     } else {
         res.render('quizes/answer', {respuesta: 'Incorrecto'});
+        req.app.locals.contFallos+=1;
     }
 };
 
