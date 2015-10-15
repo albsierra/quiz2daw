@@ -12,5 +12,5 @@ router.get('/', function(req, res, next) {
 router.get('/autores', autorController.list); // Ruta del listado de autores
 router.get('/quizes/question', quizController.question);
 router.get('/quizes/answer', quizController.answer);
-router.get('/estadisticas/estadisticas', estatController.estat);
+router.get('/estadisticas', estatController.estat);
 module.exports = router;
