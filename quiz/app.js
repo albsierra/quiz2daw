@@ -45,7 +45,18 @@ if (app.get('env') === 'development') {
     });
   });
 }
-
+app.use(function(req,res,next){
+app.locals.contAcierto=(app.locals.contAcierto||0);
+app.locals.contAcierto+=1;
+console.log(app.locals.contAcierto);
+next();
+})
+app.use(function(req,res,next){
+app.locals.contFallo=(app.locals.contFallo||0);
+app.locals.contFallo+=1;
+console.log(app.locals.contFallo);
+next();
+})
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
