@@ -13,5 +13,4 @@ router.get('/autores', autorController.list); // Ruta del listado de autores
 
 router.get('/quizes/question', quizController.question);
 router.get('/quizes/answer', quizController.answer);
-router.get('/autores/autores', quizController.autores);
 module.exports = router;
