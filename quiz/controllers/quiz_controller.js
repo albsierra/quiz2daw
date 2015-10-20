@@ -1,23 +1,18 @@
 var models = require ('../models/models.js');
 // GET /quizes/question
 
-exports.show = function(req, res) {
-    models.Quiz.findById(req.params.quizId).then(function(quiz){
-        res.render('quizes/show', {quiz: quiz});
-    });
+exports.show = function(req, res) {   
+        res.render('quizes/show', {quiz: req.quiz});
     };                                                                                                                                                              
 
 // GET /quizes/answer
 exports.answer = function(req, res) {
-    models.Quiz.findById(req.params.quizId).then(function(quiz){
-    if(req.query.respuesta === quiz.respuesta){   
-        res.render('quizes/answer',
-                    {quiz: quiz, respuesta: 'Correcto'});
-    } else {
-        res.render('quizes/answer',
-                    {quiz: quiz, respuesta: 'Incorrecto'});
+    var resultado= 'Inconrrecto';
+    if(req.query.respuesta === req.quiz.respuesta){   
+        resultado='Correcto';
     }
-    })
+    res.render('quizes/answer', {quiz:req.quiz,respuesta: resultado});
+    
 };
 //GET/quizes
 exports.index=function(req, res){
@@ -26,3 +21,14 @@ exports.index=function(req, res){
     })
 }
 
+//Autoload-factoriza el codigo si la ruta incluye :quizId
+exports.load=function(req,res,next,quizId){
+    models.Quiz.findById(quizId).then(
+        function(quiz){
+            if(quiz){
+                req.quiz=quiz;
+                next();
+            }else{next(new Error('No existe quizId='+quizId));}
+        }
+    ).catch(function(error){next(error);});
+};

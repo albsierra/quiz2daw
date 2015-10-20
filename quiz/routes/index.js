@@ -7,7 +7,8 @@ var autorController=require('../controllers/autor_controller')
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quiz' });
 });
-
+//Autoload de comandos con :quizId
+router.param('quizId', quizController.load);//Autoload :quizId
 router.get('/autores', autorController.list);//ruta de listado de autores
 
 router.get('/quizes',                       quizController.index);
