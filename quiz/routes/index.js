@@ -8,6 +8,9 @@ var autorController = require('../controllers/autor_controller')
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quiz' });
 });
+
+router.param('quizId', quizController.load); //autoload :quizId
+
 router.get('/quizes',quizController.index);
 router.get('/autores', autorController.list); // Ruta del listado de autores
 router.get('/quizes/:quizId(\\d+)', quizController.show);
