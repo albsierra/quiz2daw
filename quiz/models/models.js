@@ -5,7 +5,7 @@ var Sequelize = require ('sequelize');
 
 //usar bbdd sqlite
 var sequelize = new Sequelize(null,null,null,
-	{dialect: "sqlite" , sortage: "quiz.sqlite" }
+	{dialect: "sqlite" , storage: "quiz.sqlite" }
 	);
 
 var Quiz = sequelize.import(path.join(__dirname,'quiz'));
