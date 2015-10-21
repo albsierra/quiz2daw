@@ -23,11 +23,21 @@
 
     	<nav class="main" id="n1" role="navigation">
     		<span><a href="/">Inicio</a></span>
-    		<span><a href="/quizes/question">Preguntas</a></span>
+    		<span><a href="/quizes">Preguntas</a></span>
+    		<span><a href="/autores">Autores</a></span>
     	</nav>
 
     	<section class="main" id="s1">
-    		<%- body %>
+			<% if (typeof errors != "undefined" && errors != null && errors.length > 0) { %>
+				<span id='ErrorMsgs'>
+					Corregir errores: <br />
+					<% for (var i in errors) { %>
+						<span><%= errors[i].message %> </span><br />
+					<% } %>
+				</span>
+			<% } %>
+			
+    		<div><%- body %></div>
     	</section>
 
     	<footer class="main" id="f1">
