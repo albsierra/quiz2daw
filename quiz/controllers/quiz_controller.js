@@ -33,7 +33,7 @@ exports.answer = function(req, res) {
 exports.index=function(req, res){
     models.Quiz.findAll().then(function(quizes){
         res.render('quizes/index.ejs',{quizes:quizes});
-    })
+    }).catch(function(error){next(error)});
 };
 
 //GET /quizes/new
@@ -56,10 +56,35 @@ exports.create= function(req ,res){
         
         }else{
              quiz //gurda en la bd los campos de preguntas y respuetas de quiz
-                     .save({fields: ["pregunta", "respuesta"]})
+                     .save({fields : ["pregunta", "respuesta"]})
                      .then(function(){res.redirect('/quizes')})
         }
     }
   );
    
+};
+//GET /quizes/:id/edit
+exports.edit = function(req, res){
+    var quiz = req.quiz;//
+    res.render('quizes/edit', { quiz : quiz });
+};
+
+//PUT /quizes/:id
+exports.update = function(req, res){
+    req.quiz.pregunta = req.body.quiz.pregunta;
+    req.quiz.respuesta = req.body.quiz.respuesta;
+    
+    req.quiz
+    .validate()
+    .then(
+    function(err){
+        if(err){
+            res.render('quizes/edit',{quiz: req.quiz ,errors: err.errors});
+        }else{
+            req.quiz
+                    .save({fields:["pregunta", "respuesta"]})
+                    .then(function(){res.redirect('/quizes');});
+        }
+    }
+            );
 };
