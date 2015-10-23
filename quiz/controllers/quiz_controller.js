@@ -15,8 +15,8 @@ exports.load = function(req, res, next, quizId) {
 // GET /quizes
 exports.index = function(req, res) {
 	models.Quiz.findAll().then(function(quizes) {
-    res.render('quizes/index', {quizes: quizes});
-});
+    res.render('quizes/index', {quizes: quizes, errors: []});
+}).catch(function(error){next(error)});
 }
 
 // GET /quizes/:quizId
@@ -77,4 +77,11 @@ exports.update = function(req,res){
             req.quiz.save({fields:["pregunta", "respuesta"]}).then(function(){res.redirect('/quizes');});
         }
     });
+};
+
+//DELETE /quizes/:id
+exports.destroy = function(req,res){
+    req.quiz.destroy().then(function(){
+        res.redirect('/quizes');
+    }).catch(function(error){next(error)});
 };
