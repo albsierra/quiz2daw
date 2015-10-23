@@ -13,6 +13,7 @@ var sequelize = new Sequelize(null,null,null,
 );
 //Importar la deifinicion de la tabla Quiz en quiz.js
 var Quiz = sequelize.import(path.join(__dirname,"quiz"));
+
 exports.Quiz = Quiz //exportar la definicion de la tabla quiz
 //sequelize.sync()crea e inicializaba tabla de preguntas en BD
 sequelize.sync().then(function(){
@@ -27,3 +28,10 @@ sequelize.sync().then(function(){
         };
     });
 });
+//Importar definicion de la tabla commetn
+var comment_path = path.join(__dirname, 'comment');
+var Comment = sequelize.import(comment_path);
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
+exports.Quiz = Quiz //exportar la definicion de la tabla quiz
+exports.Comment = Comment;
