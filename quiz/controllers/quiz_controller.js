@@ -1,4 +1,5 @@
 var models = require('../models/models.js');
+
 // Autoload - factoriza el código si ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
 
@@ -59,14 +60,14 @@ exports.show = function(req, res) {
 	res.render('quizes/show', {
 		quiz : req.quiz
 	});
-};
+
 
 models.Quiz.findAll().then(function(quizes) {
 	res.render('quizes/index.ejs', {
 		quizes : quizes
 	});
 });
-}
+
 
 // GET /quizes/:quizId
 exports.show = function(req, res) {
@@ -89,11 +90,6 @@ exports.answer = function(req, res) {
 	});
 };
 
-res.render('quizes/answer', {
-	respuesta : resultado,
-	quiz : req.quiz
-});
-};
 
 // GET /quizes/new
 exports.new = function(req, res) {
@@ -127,8 +123,6 @@ exports.create = function(req, res) {
 		}
 
 	});
-
-	);
 };
 
 // GET /quizes/:id/edit
@@ -167,3 +161,6 @@ exports.destroy = function(req, res) {
 	});
 
 };
+
+
+
