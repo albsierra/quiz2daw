@@ -5,6 +5,7 @@
 		<td align="left">
 			<%= (i+1)+".  "%><a href="quizes/<%= quizes[i].id %>"><%=  quizes[i].pregunta %></a>
 		</td>
+		<%if(session.user){%>
                 <td>
 			<a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a>
 		</td>
@@ -15,8 +16,11 @@
                         </button>
                     </form>
 		</td>
+		<%}%>
 	</tr>
 <% } %>
 </table>
+</p>
+<%if(session.user){%>
 <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
-
+<%}%>
