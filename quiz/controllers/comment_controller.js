@@ -18,7 +18,7 @@ function(err){
             comment: comment, quizId: req.params.quizId, errors: err.errors});
     }else {
         comment //save: guarda en bd campod de txto de comment
-        .save
+        .save()
         .then(function(){res.redirect('/quizes/'+req.params.quizId)})
         
     }//re.redirec: Redireccion HTTP a la lista de preguntas
