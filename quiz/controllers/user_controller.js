@@ -1,5 +1,5 @@
-var users = {admin: {id:1, username:"admin", password:"4321"},
-            angel: {id:2, username:"angel", password:"1234"}
+var users = {admin: {id:1, username:"admin", password:"1234"},
+            pepe: {id:2, username:"pepe", password:"4321"}
             };
 exports.autenticar = function(login,password,callback){
     if(users[login]){

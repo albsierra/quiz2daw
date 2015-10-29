@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var quizController = require('../controllers/quiz_controller')
-var autorController = require('../controllers/autor_controller')
+var quizController = require('../controllers/quiz_controller');
+var autorController = require('../controllers/autor_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 
@@ -15,6 +15,7 @@ router.get('/autores', autorController.list); // Ruta del listado de autores
 
 //Autoload de comandos con :quizId
 router.param('quizId', quizController.load);
+router.param('commentId', commentController.load);
 
 //Sesion
 router.get('/login', sessionController.new);
@@ -33,5 +34,6 @@ router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizCont
 
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
 
 module.exports = router;
