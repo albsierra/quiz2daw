@@ -13,11 +13,14 @@ var Quiz = sequelize.import(path.join(__dirname,'quiz'));
 var comment_path = path.join(__dirname, 'comment');
 var Comment = sequelize.import(comment_path);
 
+var User = sequelize.import(path.join(__dirname,'user'));
+
 Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
 
 exports.Quiz = Quiz;
 exports.Comment = Comment;
+exports.User = User;
 
 sequelize.sync().then(function(){
 	
@@ -31,6 +34,23 @@ sequelize.sync().then(function(){
 						  respuesta: 'Lisboa'
 						 })
 			.then(function(){console.log('Base de datos inicializada')});
+		};
+	});
+});
+
+
+sequelize.sync().then(function(){
+	
+	User.count().then(function(count){
+		
+		if(count === 0){
+			User.create({ username: 'admin',
+						  password: '1234'
+						});
+			User.create({username: 'pepe',
+						  password: '5678'
+						 })
+			.then(function(){console.log('Tabla User inicializada')});
 		};
 	});
 });
