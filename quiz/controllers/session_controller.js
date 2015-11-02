@@ -24,7 +24,7 @@ exports.create=function(req,res){
             res.redirect("/login");
             return;
         }
-        req.session.user={id:user.id, username:user.username};
+        req.session.user={id:user.id, username:user.usuario};
         res.redirect(req.session.redir.toString());
     });
 };
