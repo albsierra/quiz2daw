@@ -1,7 +1,14 @@
 //Definicion del modelo tabla usuario
 module.exports=function(sequelize, DataTypes){
     return sequelize.define('User',
-        {usuario: DataTypes.STRING,
-        contrasena: DataTypes.STRING,
+        {
+            username: {
+                type: DataTypes.STRING,
+                validate: {notEmpty: {msg : "->Falta usuario"}}
+            },
+            password: {
+                type: DataTypes.STRING,
+                validate: {notEmpty: {msg : "->Falta contraseña"}}
+            }
         });
 }

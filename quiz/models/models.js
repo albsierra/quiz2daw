@@ -29,11 +29,11 @@ sequelize.sync().then(function(){
 sequelize.sync().then(function(){/*crear la tabla User si no está ya creada*/
     User.count().then(function(count){
         if(count===0){
-            User.create({usuario: 'admin',
-                contrasena: '1234'
+            User.create({username: 'admin',
+                password: '1234'
             });
-            User.create({usuario: 'pepe',
-                contrasena: '5678'
+            User.create({username: 'pepe',
+                password: '5678'
             }).then(function(){console.log('Tabla usuarios inicializada oSo')});
         };
     });
