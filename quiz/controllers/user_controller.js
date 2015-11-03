@@ -14,10 +14,39 @@ exports.autenticar = function(login, pass, callback){
             }else{callback(new Error('No existe el usuario.'));}
         }
     ).catch(function(error){callback(error);});
-  /*  if(users[login]){
-        if(password === users[login].password){
-            
+
+};
+exports.load=function(req,res,next,userId){
+    models.User.find({
+        where: { id: Number(userId)}
+    }).then(function(user){
+            if(user){
+                req.user=user;
+                next();
+            }else{next(new Error('No existe quizId='+userId))}
         }
-        else{callback(new Error('Password erroneo.'));}
-    } else {callback(new Error('No existe el usuario.'));}*/
+    ).catch(function(error){next(error);});
+};
+exports.edit=function(req,res){
+    var user=req.user;//autoload de instancia de quiz
+    res.render('users/edit', {user : user});
+};
+
+exports.update=function(req,res){
+    req.user.username = req.body.user.username;
+    req.user.password = req.body.user.password;
+    
+    req.user
+            .validate()
+            .then(
+            function(err){
+                if(err){
+                res.render('users/edit', {user: req.user, errors: err.errors});
+            }else  {
+                req.user
+                        .save({fields:["username", "password"]})
+                        .then(function(){res.redirect('/users/');});
+            }
+        }
+    );
 };
