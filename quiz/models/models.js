@@ -4,39 +4,39 @@ var path = require('path');
 var Sequelize = require('sequelize');
 
 // Usar BBDD SQLite:
-var sequelize = new Sequelize(null, null, null, {
-	dialect : "sqlite",
-	storage : "quiz.sqlite"
-});
+var sequelize = new Sequelize(null, null, null,
+			{dialect: "sqlite", storage: "quiz.sqlite"}
+		);
 
-// Importar la definicion de la tabla Quiz en quiz.js
+// Importar la definición de la tabla Quiz en quiz.js
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 
-// Importar la definicion de la tabla Comment
-var comment_path = path.join(__dirname, 'comment');
-var Comment = sequelize.import(comment_path);
+// Importar la definición de la tabla User en user.js
+var User = sequelize.import(path.join(__dirname, 'user'));
 
-Comment.belongsTo(Quiz);
-Quiz.hasMany(Comment);
-
-exports.Quiz = Quiz;
-// exportar definicion de tabla Quiz
-exports.Comment = Comment;
 // sequelize.sync() crea e inicializa tabla de preguntas en DB
 sequelize.sync().then(function() {
 	// then(..) ejecuta el manejador una vez creada la tabla
 	Quiz.count().then(function(count) {
-		if (count === 0) {// la tabla se inicializa solo si estï¿½ vacï¿½a
-			Quiz.create({
-				pregunta : 'Capital de Italia',
-				respuesta : 'Roma'
-			});
-			Quiz.create({
-				pregunta : 'Capital de Portugal',
-				respuesta : 'Lisboa'
-			}).then(function() {
-				console.log('Base de datos inicializada')
-			});
+		if(count === 0) { // la tabla se inicializa solo si está vacía
+		Quiz.create({ pregunta: 'Capital de Italia' ,
+					  respuesta: 'Roma'
+		});
+		Quiz.create({ pregunta: 'Capital de Portugal' ,
+					  respuesta: 'Lisboa'
+		})
+		.then(function(){console.log('Tabla Quiz inicializada')});
+		};
+	});
+	User.count().then(function(count) {
+		if(count === 0) { // la tabla se inicializa solo si está vacía
+		User.create({ username: 'admin' ,
+					  password: '1234'
+		});
+		User.create({ username: 'pepe' ,
+					  password: '5678'
+		})
+		.then(function(){console.log('Tabla User inicializada')});
 		};
 	});
 });
@@ -47,6 +47,6 @@ var Comment = sequelize.import(comment_path);
 Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
 
-exports.Quiz = Quiz;
-// exportar definiciï¿½n de tabla Quiz
-exports.Comment = Comment; 
+exports.Quiz = Quiz; // exportar definición de tabla Quiz
+exports.Comment = Comment;
+exports.User = User;
