@@ -15,6 +15,14 @@ exports.load = function(req, res, next, cuestionarioId) {
 	).catch(function(error){next(error)});
 }
 
+	// GET/cuestionarios/cuestionarioId
+	exports.show = function(req, res) {
+	req.cuestionario.getQuizzes().then(
+                function(quizes) {
+    res.render('cuestionarios/show', {cuestionario: req.cuestionario, quizes: quizes});
+});
+}
+
 //  GET/cuestionarios VISTA DE LISTA CUESTIONARIOS
 exports.index = function(req, res) {
 	models.Cuestionario.findAll({
