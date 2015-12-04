@@ -86,7 +86,7 @@ exports.update = function(req, res) {
                 }else{
                     req.quiz
                             .save({fields:["pregunta","respuesta"]})
-                            .then(function(){res.redirect('/admin/quizes');});
+                            .then(function(){res.redirect('/admin/cuestionarios/'+req.cuestionario.id+'/quizes');});
                 }
             }
         );
