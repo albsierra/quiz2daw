@@ -6,8 +6,9 @@
         <td><%= cuestionario.creador %></td>    
         <td><%= cuestionario.observaciones %></td>    
         <td><%= cuestionario.fechaFin %></a></td>
-        <td><a href="/admin/quizes/"><button>Mostrar Preguntas</button></td>
+        <td><a href="/admin/cuestionarios/<%= cuestionario.id %>/quizes/"><button>Mostrar</button></td>
         <td><a href="/admin/cuestionarios/<%= cuestionario.id %>/edit"><button>editar</button></a></td>
 	</tr>
 
 </table><br/>
+
