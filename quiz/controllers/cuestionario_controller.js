@@ -90,3 +90,37 @@ exports.create = function(req, res) {
 		}
 	);
 };
+
+exports.duplicate = function(req, res) {
+	var cuestionario = models.Cuestionario.build();
+	cuestionario.set('creador',req.session.profesor.id);
+	cuestionario.set('fechaFin', req.cuestionario.fechaFin);
+	cuestionario.set('observaciones', req.cuestionario.observaciones);
+		
+	cuestionario.validate()
+	.then(
+		function(err){
+			if(err) {
+				res.render('cuestionarios/new', {cuestionario: cuestionario, errors: err.errors});
+			} else {
+				for(prop in cuestionario.dataValues) {console.log(prop + ' - ' + cuestionario[prop])};
+				cuestionario.save({fields: ["fechaFin", "observaciones", "creador"]}).then(function(){
+					var quizesN = [];
+	
+					req.cuestionario.getQuizzes().then(function(quizes){
+					for(var i = 0;i < quizes.length;i++){
+						quizesN[i] = models.Quiz.build();
+						quizesN[i].set('pregunta', quizes[i].pregunta);
+						quizesN[i].set('respuesta', quizes[i].respuesta);
+						quizesN[i].set('CuestionarioId', cuestionario.id)
+						quizesN[i].save({fields: ["pregunta", "respuesta", "CuestionarioId"]})
+						console.log('pregunta' + quizes[i].pregunta);
+					}
+
+					res.redirect('/admin/cuestionarios');
+					});
+				})	//Redireccion HTTP (URL relativo) lista de cuestionarios
+			}
+		}
+	);
+};
